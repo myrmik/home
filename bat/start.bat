@@ -1,0 +1,1 @@
+java -Dfile.encoding=Cp866 -jar assUtil.jar D:\Downloads\ D:\Downloads\tmp\ass\

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--
+    <bean id="parser" class="download.subs.KageDownloader"
+        p:appRuleDao-ref="mvAppRuleDao"/>
+-->
+
+    <bean id="subDownloader" class="download.subs.KageDownloader">
+        <property name="parser" ref="subParser" />
+    </bean>
+
+    <bean id="subParser" class="download.parser.kage.KageParser"/>
+
+    <bean id="videoDownloader" class="download.subs.NyaaDownloader">
+        <property name="parser" ref="videoParser" />
+    </bean>
+
+    <bean id="videoParser" class="download.parser.nyaa.NyaaParser"/>
+
+
+</beans>
