@@ -1,5 +1,6 @@
 package download.subs;
 
+import download.parser.ParseItem;
 import download.parser.kage.KageParseResult;
 
 import java.net.URL;
@@ -15,5 +16,10 @@ public class KageDownloader extends SubDownloader<KageParseResult> {
 
     protected String getFileExt() {
         return "rar";
+    }
+
+    @Override
+    public ParseItem defineSubUrl(KageParseResult parseResult) {
+       return super.defineSubUrl(parseResult);
     }
 }

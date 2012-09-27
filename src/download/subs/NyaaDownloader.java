@@ -1,5 +1,6 @@
 package download.subs;
 
+import download.parser.ParseItem;
 import download.parser.nyaa.NyaaParseResult;
 import download.parser.nyaa.NyaaParser;
 
@@ -21,6 +22,12 @@ public class NyaaDownloader extends SubDownloader<NyaaParseResult> {
     @Override
     public File download() {
         return download(DEFAULT_PATTERN);
+    }
+
+    @Override
+    public ParseItem defineSubUrl(NyaaParseResult parseResult) {
+        // todo filter by episode name
+        return super.defineSubUrl(parseResult);
     }
 
     /**
