@@ -3,10 +3,10 @@ package download.parser.kage;
 import download.parser.ParseItem;
 import download.parser.Parser;
 import download.parser.soup.SoupParser;
-import org.apache.commons.lang3.Range;
 import org.apache.log4j.Logger;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import utils.IntRange;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -50,18 +50,7 @@ public class KageParser extends Parser<KageParseResult> {
                 throw new Exception("Cannot parse episodes for: '" + input + "'");
             }
 
-            String[] sRanges = episodesMatcher.group(1).trim().split(",");
-            for (String sRange : sRanges) {
-                int firstEpisode, lastEpisode;
-                String[] episodeRange = sRange.split("-");
-                firstEpisode = Integer.valueOf(episodeRange[0].trim());
-                if (episodeRange.length == 1) {
-                    lastEpisode = firstEpisode;
-                } else {
-                    lastEpisode = Integer.valueOf(episodeRange[1].trim());
-                }
-                parseItem.getEpisodeRange().add(Range.between(firstEpisode, lastEpisode));
-            }
+            parseItem.setEpisodeRange(IntRange.parse(episodesMatcher.group(1)));
         } catch (Exception e) {
             parseItem.setErrorMessage(e.getMessage());
             parseItem.getEpisodeRange().clear();

@@ -8,6 +8,9 @@ import java.net.URL;
 import java.util.List;
 
 public class NyaaDownloader extends SubDownloader<NyaaParseResult> {
+
+    private final String DEFAULT_PATTERN = "*[${owner}]${name}${episode}*[${format}]*";
+
     public NyaaDownloader(String name, URL url, List<String> ownersPriority, String file) {
         super(name, url, ownersPriority, file);
     }
@@ -17,7 +20,16 @@ public class NyaaDownloader extends SubDownloader<NyaaParseResult> {
 
     @Override
     public File download() {
-        ((NyaaParser)parser).setEpisodeName(name);
+        return download(DEFAULT_PATTERN);
+    }
+
+    /**
+     *
+     * @param pattern e.g. - *[${owner}]*${name}*${episode}*[${format}]*
+     * @return
+     */
+    public File download(String pattern) {
+        ((NyaaParser)parser).setPattern(pattern);
         return super.download();
     }
 

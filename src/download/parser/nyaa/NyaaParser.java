@@ -3,26 +3,24 @@ package download.parser.nyaa;
 import download.parser.ParseItem;
 import download.parser.Parser;
 import download.parser.soup.SoupParser;
-import org.apache.commons.lang3.Range;
 import org.apache.log4j.Logger;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import utils.IntRange;
+import utils.VideoTorrentMatcher;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.List;
 
 public class NyaaParser extends Parser<NyaaParseResult> {
     private static final Logger logger = Logger.getLogger(NyaaParser.class);
 
     private SoupParser htmlParser = new SoupParser();
 
-    private String episodeName;
-
     public String NYAA_URL_PREFIX = "http://www.nyaa.eu/?page=search&cats=0_0&filter=0&term=";
 
-    protected Pattern EPISODES_OWNER_PATTERN;
+    protected VideoTorrentMatcher videoTorrentMatcher;
 
     @Override
     public NyaaParseResult parse(String input) throws Exception {
@@ -46,16 +44,22 @@ public class NyaaParser extends Parser<NyaaParseResult> {
 
     private void parseOwnerAndEpisodes(String input, ParseItem parseItem) throws Exception {
         try {
-            Matcher episodesMatcher = EPISODES_OWNER_PATTERN.matcher(input);
-            if (!episodesMatcher.find()) {
-                throw new Exception("Cannot parse episodes for: '" + input + "'");
+            if (videoTorrentMatcher == null) {
+                throw new Exception("The torrent pattern is not defined!");
+            }
+            if (!videoTorrentMatcher.find(input)) {
+                throw new Exception("Cannot find episodes for: '" + input + "'");
             }
 
-            String owner = episodesMatcher.group(1);
-            int episode = Integer.valueOf(episodesMatcher.group(2)); //todo add episode range support
+            String owner = videoTorrentMatcher.getOwner();
+            String name = videoTorrentMatcher.getName();
+            String format = videoTorrentMatcher.getFormat();
+            List<IntRange> episodes = videoTorrentMatcher.getEpisodes();
 
             parseItem.setOwner(owner);
-            parseItem.getEpisodeRange().add(Range.between(episode, episode));
+            parseItem.setName(name);
+            parseItem.setFormat(format);
+            parseItem.setEpisodeRange(episodes);
         } catch (Exception e) {
             parseItem.setErrorMessage(e.toString());
             parseItem.getEpisodeRange().clear();
@@ -63,8 +67,11 @@ public class NyaaParser extends Parser<NyaaParseResult> {
 
     }
 
-    public void setEpisodeName(String episodeName) {
-        this.episodeName = episodeName;
-        EPISODES_OWNER_PATTERN = Pattern.compile(".*\\[(.*)\\].*" + episodeName.trim().replace(" ", ".*") + "[^\\d]*(\\d+)");
+    /**
+     *
+     * @param pattern e.g. - *[${owner}]*${name}*${episode}*[${format}]*
+     */
+    public void setPattern(String pattern) {
+        videoTorrentMatcher = new VideoTorrentMatcher(pattern);
     }
 }

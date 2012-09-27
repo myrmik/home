@@ -4,7 +4,7 @@ import download.ParseDownloader;
 import download.UrlReader;
 import download.parser.ParseItem;
 import download.parser.ParseResult;
-import org.apache.commons.lang3.Range;
+import utils.IntRange;
 
 import java.io.File;
 import java.net.URL;
@@ -15,7 +15,7 @@ import java.util.List;
 public abstract class SubDownloader<PR extends ParseResult> extends ParseDownloader<PR> {
     protected String toFile;
 
-    protected Range<Integer> needEpisodes;
+    protected IntRange needEpisodes;
 
     public SubDownloader(String name, URL url, List<String> ownersPriority, String file) {
         super(name, url, ownersPriority);
@@ -33,11 +33,13 @@ public abstract class SubDownloader<PR extends ParseResult> extends ParseDownloa
             if (parseItem == null) {
                 return null;
             } else {
-                String episodes = parseItem.getEpisodeRange().toString()
-                        .replace("..", "-")
-                        .replace("[", "")
-                        .replace("]", "");
-                String fileName = toFile + name + " " + episodes + "." + getFileExt(); // todo add owner
+                String episodes = parseItem.getEpisodeRange().toString();
+                String owner = parseItem.getOwner() != null ? "[" + parseItem.getOwner() + "] " : "";
+                String fileName = toFile
+                        + owner
+                        + name + " "
+                        + episodes
+                        + "." + getFileExt();
                 return UrlReader.readUrlToFile(parseItem.getUrl(), new File(fileName));
             }
         } catch (Exception e) {
@@ -71,16 +73,16 @@ public abstract class SubDownloader<PR extends ParseResult> extends ParseDownloa
         this.toFile = toFile;
     }
 
-    public Range<Integer> getNeedEpisodes() {
+    public IntRange getNeedEpisodes() {
         return needEpisodes;
     }
 
-    public void setNeedEpisodes(Range<Integer> needEpisodes) {
+    public void setNeedEpisodes(IntRange needEpisodes) {
         this.needEpisodes = needEpisodes;
     }
 
     public void setNeedEpisode(int episode) {
-        this.needEpisodes = Range.between(episode, episode);
+        this.needEpisodes = IntRange.between(episode, episode);
     }
 
     protected String getFileExt() {

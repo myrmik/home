@@ -1,23 +1,29 @@
 package download.parser;
 
-import org.apache.commons.lang3.Range;
+import utils.IntRange;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ParseItem implements Comparable {
-    private List<Range<Integer>> episodeRange;
+public class ParseItem {
+    private List<IntRange> episodeRange;
     private URL url;
     private String errorMessage;
     private String owner;
+    private String name;
+    private String format;
 
     public ParseItem() {
-        episodeRange = new ArrayList<Range<Integer>>();
+        episodeRange = new ArrayList<IntRange>();
     }
 
-    public List<Range<Integer>> getEpisodeRange() {
+    public List<IntRange> getEpisodeRange() {
         return episodeRange;
+    }
+
+    public void setEpisodeRange(List<IntRange> episodeRange) {
+        this.episodeRange = episodeRange;
     }
 
     public URL getUrl() {
@@ -44,16 +50,28 @@ public class ParseItem implements Comparable {
         this.owner = owner;
     }
 
-    public boolean isContainEpisodes(Range<Integer> episodeRange) {
-        for (Range<Integer> range : getEpisodeRange()) {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getFormat() {
+        return format;
+    }
+
+    public void setFormat(String format) {
+        this.format = format;
+    }
+
+    public boolean isContainEpisodes(IntRange episodeRange) {
+        for (IntRange range : getEpisodeRange()) {
             if (range.containsRange(episodeRange)) {
                 return true;
             }
         }
         return false;
-    }
-
-    public int compareTo(Object o) {
-        return 0;  //To change body of implemented methods use File | Settings | File Templates.
     }
 }
