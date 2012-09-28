@@ -7,26 +7,28 @@ import download.parser.ParseResult;
 import utils.IntRange;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public abstract class SubDownloader<PR extends ParseResult> extends ParseDownloader<PR> {
+public abstract class EpisodeDownloader<PR extends ParseResult> extends ParseDownloader<PR> {
     protected String toFile;
 
     protected IntRange needEpisodes;
 
-    public SubDownloader(String name, URL url, List<String> ownersPriority, String file) {
+    public EpisodeDownloader(String name, URL url, List<String> ownersPriority, String file) {
         super(name, url, ownersPriority);
         toFile = file;
     }
 
-    protected SubDownloader() {
+    protected EpisodeDownloader() {
     }
 
     @Override
-    public File download() {
+    public File download() throws MalformedURLException, UnsupportedEncodingException {
         try {
             PR parseResult = parser.parse(UrlReader.readUrlToString(url));
             ParseItem parseItem = defineSubUrl(parseResult);
@@ -35,10 +37,12 @@ public abstract class SubDownloader<PR extends ParseResult> extends ParseDownloa
             } else {
                 String episodes = parseItem.getEpisodeRange().toString();
                 String owner = parseItem.getOwner() != null ? "[" + parseItem.getOwner() + "] " : "";
+                String videoFormat = (parseItem.getFormat() != null ? " [" + parseItem.getFormat() + "]" : "");
                 String fileName = toFile
                         + owner
                         + name + " "
                         + episodes
+                        + videoFormat
                         + "." + getFileExt();
                 return UrlReader.readUrlToFile(parseItem.getUrl(), new File(fileName));
             }
@@ -62,7 +66,7 @@ public abstract class SubDownloader<PR extends ParseResult> extends ParseDownloa
                 return parseItem;
             }
         }
-        return null; // todo
+        return null;
     }
 
     public String getToFile() {

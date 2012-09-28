@@ -10,6 +10,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.IOException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,12 +58,13 @@ public class assUtil {
 
             videoDownloader.setName("Fairy Tail");
 
-            URL url = new URL("http://www.nyaa.eu/?page=search&cats=0_0&filter=0&term=Fairy+Tail+139"); //todo
-            videoDownloader.setUrl(url);
+            List<String> ownerList = new ArrayList<String>();
+            ownerList.add("HorribleSubs");
+            videoDownloader.setOwnersPriority(ownerList);
 
-            List<String> list = new ArrayList<String>();
-            list.add("HorribleSubs");
-            videoDownloader.setOwnersPriority(list);
+            List<String> formatList = new ArrayList<String>();
+            formatList.add("720p");
+            videoDownloader.setFormatPriority(formatList);
 
             videoDownloader.setToFile("D:\\");
 

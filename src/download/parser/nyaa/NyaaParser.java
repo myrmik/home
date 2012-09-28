@@ -18,8 +18,6 @@ public class NyaaParser extends Parser<NyaaParseResult> {
 
     private SoupParser htmlParser = new SoupParser();
 
-    public String NYAA_URL_PREFIX = "http://www.nyaa.eu/?page=search&cats=0_0&filter=0&term=";
-
     protected VideoTorrentMatcher videoTorrentMatcher;
 
     @Override

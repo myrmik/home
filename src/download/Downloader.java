@@ -3,6 +3,8 @@ package download;
 import org.apache.log4j.Logger;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
@@ -38,15 +40,7 @@ public abstract class Downloader {
         this.ownersPriority = ownersPriority;
     }
 
-    public URL getUrl() {
-        return url;
-    }
-
-    public void setUrl(URL url) {
-        this.url = url;
-    }
-
-    public abstract File download();
+    public abstract File download() throws MalformedURLException, UnsupportedEncodingException;
 
     @Override
     public String toString() {
