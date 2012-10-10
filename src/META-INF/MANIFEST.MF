@@ -1,4 +1,0 @@
-Manifest-Version: 1.0
-Class-Path: log4j-1.2.16.jar chilkat.jar commons-lang3-3.0.1.jar
-Main-Class: assUtil
-
