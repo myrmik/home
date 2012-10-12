@@ -1,1 +1,1 @@
-mvn install:install-file -Dfile=chilkat.jar -DgroupId=com.chilkatsoft -DartifactId=chilkat  -Dversion=9.3.2 -Dpackaging=jar
+mvn install:install-file -Dfile=chilkat.jar -DgroupId=com.chilkatsoft -DartifactId=chilkat  -Dversion=9.3.2 -Dpackaging=jar & mvn install:install-file -Dfile=chilkat.dll -DgroupId=com.chilkatsoft -DartifactId=chilkat-dll  -Dversion=9.3.2 -Dpackaging=dll
