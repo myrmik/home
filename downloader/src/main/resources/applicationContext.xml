@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+    <context:annotation-config />
+
+    <bean id="downloadVideoJob" class="com.asevastyanov.torrentEater.jobs.DownloadVideoJob"/>
+    <bean id="downloadSubJob" class="com.asevastyanov.torrentEater.jobs.DownloadSubJob"/>
+
+    <bean id="subDownloader" class="com.asevastyanov.torrentEater.download.subs.KageDownloader">
+        <property name="parser" ref="subParser" />
+    </bean>
+
+    <bean id="subParser" class="com.asevastyanov.torrentEater.download.parser.kage.KageParser"/>
+
+    <bean id="videoDownloader" class="com.asevastyanov.torrentEater.download.subs.NyaaDownloader">
+        <property name="parser" ref="videoParser" />
+    </bean>
+
+    <bean id="videoParser" class="com.asevastyanov.torrentEater.download.parser.nyaa.NyaaParser"/>
+
+</beans>
