@@ -10,7 +10,6 @@
 
     <groupId>com.asevastyanov.torrentEater</groupId>
     <artifactId>ass-parser</artifactId>
-    <version>1.0</version>
     <packaging>jar</packaging>
 
     <name>Ass Parser</name>
@@ -25,6 +24,11 @@
         <dependency>
             <groupId>com.chilkatsoft</groupId>
             <artifactId>chilkat</artifactId>
+            <version>${chilkat.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.chilkatsoft</groupId>
+            <artifactId>chilkat-dll</artifactId>
             <version>${chilkat.version}</version>
         </dependency>
     </dependencies>

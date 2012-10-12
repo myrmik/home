@@ -10,15 +10,11 @@
 
     <groupId>com.asevastyanov.torrentEater</groupId>
     <artifactId>downloader</artifactId>
-    <version>1.0</version>
     <packaging>jar</packaging>
 
     <name>Downloader</name>
 
     <properties>
-        <spring-security.version>3.1.0.RELEASE</spring-security.version>
-        <spring.version>3.1.0.RELEASE</spring.version>
-
         <jsoup.version>1.6.2</jsoup.version>
     </properties>
 
