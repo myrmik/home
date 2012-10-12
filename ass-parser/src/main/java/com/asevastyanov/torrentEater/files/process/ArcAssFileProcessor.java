@@ -95,7 +95,7 @@ public class ArcAssFileProcessor implements FileProcessor {
                 new File(output + "\\" + tmpDirName).delete();
             }
 
-            return "SUCCES - Unpacked: " + rarEntry.filename();
+            return "SUCCESS - Unpacked: " + rarEntry.filename();
         } else {
             return "ERROR - Unrar extract error:\n" + rarEntry.lastErrorText();
         }
