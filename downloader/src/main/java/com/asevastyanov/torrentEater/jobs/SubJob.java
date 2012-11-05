@@ -2,12 +2,13 @@ package com.asevastyanov.torrentEater.jobs;
 
 import com.asevastyanov.torrentEater.download.subs.EpisodeDownloader;
 import com.asevastyanov.torrentEater.download.subs.KageDownloader;
+import com.asevastyanov.torrentEater.jobs.util.JobError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.net.URL;
 
-public class DownloadSubJob extends Job {
+public class SubJob extends Job {
 
     private URL url;
 

@@ -1,6 +1,9 @@
 package com.asevastyanov.torrentEater.jobs;
 
 import com.asevastyanov.torrentEater.download.subs.EpisodeDownloader;
+import com.asevastyanov.torrentEater.jobs.util.DownloadCompleteEvent;
+import com.asevastyanov.torrentEater.jobs.util.DownloadCompleteListener;
+import com.asevastyanov.torrentEater.jobs.util.JobError;
 import com.asevastyanov.torrentEater.utils.IntRange;
 
 import javax.swing.event.EventListenerList;
@@ -84,7 +87,7 @@ public abstract class Job {
         return ownerList;
     }
 
-    public void setOwnerList(List<String> ownerList) {
+    public void setOwners(List<String> ownerList) {
         this.ownerList = ownerList;
     }
 

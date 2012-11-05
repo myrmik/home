@@ -7,17 +7,16 @@
                 http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
     <http pattern="/login*" security="none"/>
+    <http pattern="/favicon.ico" security="none"/>
 
     <http auto-config="true">
         <intercept-url pattern="/**" access="ROLE_USER"/>
 
         <form-login
                 login-page="/login"
+                default-target-url="/"
                 authentication-failure-url="/login?login_error=true"/>
     </http>
-
-    <beans:bean id="restLoginFilter" class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter"
-                p:authenticationManager-ref="authenticationManager"/>
 
     <authentication-manager alias="authenticationManager">
         <authentication-provider>

@@ -1,4 +1,4 @@
-package com.asevastyanov.torrentEater.jobs;
+package com.asevastyanov.torrentEater.jobs.util;
 
 public class JobError {
     String message;

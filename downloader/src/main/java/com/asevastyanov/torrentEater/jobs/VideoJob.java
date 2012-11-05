@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.List;
 
-public class DownloadVideoJob extends Job {
+public class VideoJob extends Job {
 
     private List<String> formatList;
 

@@ -1,4 +1,4 @@
-package com.asevastyanov.torrentEater.jobs;
+package com.asevastyanov.torrentEater.jobs.util;
 
 import java.util.EventListener;
 

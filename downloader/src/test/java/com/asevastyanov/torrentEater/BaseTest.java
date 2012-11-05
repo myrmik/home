@@ -1,7 +1,7 @@
 package com.asevastyanov.torrentEater;
 
-import com.asevastyanov.torrentEater.jobs.DownloadSubJob;
-import com.asevastyanov.torrentEater.jobs.DownloadVideoJob;
+import com.asevastyanov.torrentEater.jobs.SubJob;
+import com.asevastyanov.torrentEater.jobs.VideoJob;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -17,19 +17,19 @@ public abstract class BaseTest {
     protected String DEST_PATH = "D:\\";
 
     @Autowired
-    private DownloadVideoJob videoJob;
+    private VideoJob videoJob;
 
     @Autowired
-    private DownloadSubJob subJob;
+    private SubJob subJob;
 
-    protected DownloadSubJob createSubJob() throws Exception {
+    protected SubJob createSubJob() throws Exception {
         subJob.setName("Fairy Tail");
 
         URL url = new URL("http://www.fansubs.ru/base.php?id=2629");
         subJob.setUrl(url);
 
         List<String> list = new ArrayList<String>();
-        subJob.setOwnerList(list);
+        subJob.setOwners(list);
 
         subJob.setDestinationPath(DEST_PATH);
 
@@ -38,12 +38,12 @@ public abstract class BaseTest {
         return subJob;
     }
 
-    protected DownloadVideoJob createVideoJob() {
+    protected VideoJob createVideoJob() {
         videoJob.setName("Fairy Tail");
 
         List<String> ownerList = new ArrayList<String>();
         ownerList.add("HorribleSubs");
-        videoJob.setOwnerList(ownerList);
+        videoJob.setOwners(ownerList);
 
         List<String> formatList = new ArrayList<String>();
         formatList.add("720p");

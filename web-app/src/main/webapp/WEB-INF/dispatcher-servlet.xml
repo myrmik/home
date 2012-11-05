@@ -13,6 +13,8 @@
 
     <mvc:annotation-driven/>
 
+    <context:component-scan base-package="com.asevastyanov.torrentEater.controllers"/>
+
     <mvc:resources mapping="/js/**" location="/js/"/>
     <mvc:resources mapping="/css/**" location="/css/"/>
     <mvc:resources mapping="/images/**" location="/images/"/>
@@ -21,9 +23,5 @@
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:prefix="/WEB-INF/pages/"
           p:suffix=".jsp"/>
-
-    <!-- Configure the multipart resolver (upload files)-->
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
-          p:maxUploadSize="1000000"/>
 
 </beans>

@@ -5,19 +5,19 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class JobLauncher {
+public class JobManager {
     private long periodInSeconds;
 
     private List<Job> jobList;
 
     private Timer timer;
 
-    public JobLauncher() {
+    public JobManager() {
         timer = new Timer("Job Timer");
         jobList = new ArrayList<Job>();
     }
 
-    public void start() {
+    public void startJobs() {
         if (jobList == null) return;
 
         TimerTask timerTask = new TimerTask() {
@@ -30,7 +30,7 @@ public class JobLauncher {
         timer.schedule(timerTask, 0, periodInSeconds * 1000);
     }
 
-    public void stop() {
+    public void stopJobs() {
         timer.cancel();
     }
 

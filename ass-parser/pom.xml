@@ -30,6 +30,7 @@
             <groupId>com.chilkatsoft</groupId>
             <artifactId>chilkat-dll</artifactId>
             <version>${chilkat.version}</version>
+            <type>dll</type>
         </dependency>
     </dependencies>
 </project>

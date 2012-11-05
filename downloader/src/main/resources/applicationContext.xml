@@ -6,19 +6,19 @@
 
     <context:annotation-config />
 
-    <bean id="downloadVideoJob" class="com.asevastyanov.torrentEater.jobs.DownloadVideoJob"/>
-    <bean id="downloadSubJob" class="com.asevastyanov.torrentEater.jobs.DownloadSubJob"/>
+    <bean id="downloadVideoJob" class="com.asevastyanov.torrentEater.jobs.VideoJob" scope="prototype"/>
+    <bean id="downloadSubJob" class="com.asevastyanov.torrentEater.jobs.SubJob" scope="prototype"/>
 
-    <bean id="subDownloader" class="com.asevastyanov.torrentEater.download.subs.KageDownloader">
+    <bean id="subDownloader" class="com.asevastyanov.torrentEater.download.subs.KageDownloader" scope="prototype">
         <property name="parser" ref="subParser" />
     </bean>
 
-    <bean id="subParser" class="com.asevastyanov.torrentEater.download.parser.kage.KageParser"/>
+    <bean id="subParser" class="com.asevastyanov.torrentEater.download.parser.kage.KageParser" scope="prototype"/>
 
-    <bean id="videoDownloader" class="com.asevastyanov.torrentEater.download.subs.NyaaDownloader">
+    <bean id="videoDownloader" class="com.asevastyanov.torrentEater.download.subs.NyaaDownloader" scope="prototype">
         <property name="parser" ref="videoParser" />
     </bean>
 
-    <bean id="videoParser" class="com.asevastyanov.torrentEater.download.parser.nyaa.NyaaParser"/>
+    <bean id="videoParser" class="com.asevastyanov.torrentEater.download.parser.nyaa.NyaaParser" scope="prototype"/>
 
 </beans>

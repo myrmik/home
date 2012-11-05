@@ -1,6 +1,8 @@
 package com.asevastyanov.torrentEater;
 
 import com.asevastyanov.torrentEater.jobs.*;
+import com.asevastyanov.torrentEater.jobs.util.DownloadCompleteEvent;
+import com.asevastyanov.torrentEater.jobs.util.DownloadCompleteListener;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -15,14 +17,14 @@ public class JobLauncherTest extends BaseTest {
         final boolean[] isSubDownloadSuccess = {false};
         final boolean[] isVideoDownloadSuccess = {false};
 
-        DownloadSubJob subJob = createSubJob();
+        SubJob subJob = createSubJob();
         subJob.addClickListener(new DownloadCompleteListener() {
             public void downloadComplete(DownloadCompleteEvent event) {
                 isSubDownloadSuccess[0] = true;
             }
         });
 
-        DownloadVideoJob videoJob = createVideoJob();
+        VideoJob videoJob = createVideoJob();
         videoJob.addClickListener(new DownloadCompleteListener() {
             public void downloadComplete(DownloadCompleteEvent event) {
                 isVideoDownloadSuccess[0] = true;
@@ -30,12 +32,12 @@ public class JobLauncherTest extends BaseTest {
         });
 
 
-        JobLauncher launcher = new JobLauncher();
-        launcher.setPeriodInSeconds(5);
-        launcher.getJobList().add(subJob);
-        launcher.getJobList().add(videoJob);
+        JobManager manager = new JobManager();
+        manager.setPeriodInSeconds(5);
+        manager.getJobList().add(subJob);
+        manager.getJobList().add(videoJob);
 
-        launcher.start();
+        manager.startJobs();
 
         Assert.assertTrue(waitUntilSuccess(TIMEOUT, isSubDownloadSuccess, isVideoDownloadSuccess));
     }
